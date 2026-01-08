@@ -9,7 +9,7 @@ The Bundles component displays a "Frequently bought together" product bundle int
 
 ## Overview
 
-This component is designed for Holland & Barrett's e-commerce experience, encouraging customers to purchase complementary products together. It features:
+This component is designed for H&B e-commerce experience, encouraging customers to purchase complementary products together. It features:
 
 - **Product Selection**: Users can toggle individual products on/off via checkboxes
 - **Dynamic Pricing**: Real-time price calculation with optional bundle discount
@@ -21,7 +21,7 @@ This component is designed for Holland & Barrett's e-commerce experience, encour
 
 ## Usage
 
-````tsx
+```
 import { Bundles } from './components/Bundles'
 
 function MyPage() {
@@ -37,7 +37,7 @@ function MyPage() {
     />
   )
 }
-
+```
 
 ## Default Example
 
@@ -47,58 +47,59 @@ function MyPage() {
 
 <Controls of={BundlesStories.Default} />
 
-Key Features
+## Key Features
 
-1. Product Selection
+**1. Product Selection**
 
 Users can select/deselect products using checkboxes. The total price updates dynamically based on selected items.
 
-2. Bundle Discount
+**2. Bundle Discount**
 
 Apply a percentage discount to encourage bundle purchases. The discount is clearly displayed alongside the total price and savings.
 
-3. Responsive Layout
+**3. Responsive Layout**
 
+```text
 Desktop (>1100px): Products displayed on the right, header on the left
 
 Tablet (720-1100px): Same layout, products scroll horizontally if needed
 
 Mobile (<720px): Products appear between disclaimer text and button, scrollable horizontally
+```
 
-4. Web Worker & Performance
+**4. Web Worker & Performance**
 
 For large product lists or complex calculations:
 
-Enable useWebWorker to prevent UI freezing
+- Enable useWebWorker to prevent UI freezing
+- Enable simulateHeavyWork to test performance under load
+- Enable debug to log calculation times in milliseconds
 
-Enable simulateHeavyWork to test performance under load
-
-Enable debug to log calculation times in milliseconds
-
-<Canvas of={BundlesStories.WebWorkerResponsive} />
+<Canvas of={BundlesStories.Playground} />
 
 ## API Integration
 
 The component supports multiple API formats:
 
-### Holland & Barrett Format
+## Holland & Barrett Format
 
-```json
+```
 {
-  "data": {
-    "products": [
-      {
-        "id": 1,
-        "sku": "HB-VIT-D3-1000",
-        "title": "Vitamin D3 1000 IU",
-        "price": "8.99",
-        "image": "https://...",
-        "stock": 50
-      }
-    ]
-  }
+"data": {
+"products": [
+{
+"id": 1,
+"sku": "HB-VIT-D3-1000",
+"title": "Vitamin D3 1000 IU",
+"price": "8.99",
+"image": "https://...",
+"stock": 50
 }
-````
+]
+}
+}
+
+```
 
 ### DummyJSON Format
 
@@ -127,7 +128,7 @@ The component automatically detects and adapts to the API format.
 
 This example demonstrates applying a discount, which only applies if more than one product is selected. Percentage of discount is optional as a scale.
 
-### Out of Stock State
+### Out of Stock
 
 <Canvas of={BundlesStories.OutOfStock} />
 
