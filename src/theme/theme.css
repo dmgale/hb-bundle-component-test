@@ -1,0 +1,83 @@
+/* ===================================================================
+   MINIMAL THEME - Holland & Barrett Brand
+   Contains only CSS variables that are actively being used
+   =================================================================== */
+
+/* === BASE STYLES === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: 'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #1f2a2e;
+  background-color: #ffffff;
+}
+
+/* === CSS VARIABLES === */
+:root {
+  /* === BASE COLORS === */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-100: #f5f5f5;
+
+  /* === STATUS COLORS === */
+  --color-warning: #ff9800;
+  --color-warning-bg: #fff3e0;
+  --color-error: #f44336;
+  --color-error-bg: #ffebee;
+
+  /* === BUTTON COMPONENT === */
+  --button-primary-bg: #7bb300;  /* H&B brand green */
+  --button-primary-text: var(--color-white);
+  --button-primary-shadow: none;
+  --button-primary-focus: #7bb300;
+
+  --button-secondary-bg: #0f6a5b;  /* H&B teal */
+  --button-secondary-text: var(--color-white);
+  --button-secondary-shadow: none;
+  --button-secondary-focus: #0f6a5b;
+
+  --button-disabled-bg: #d0d0d0;
+  --button-disabled-opacity: 0.6;
+
+  --button-padding: 20px 20px;
+  --button-radius: 10px;
+
+  /* === BUNDLES COMPONENT === */
+  --bundles-bg: #eef5f4;  /* Light teal background */
+  --bundles-text: #1f2a2e;  /* Dark text */
+  --bundles-text-muted: rgba(31, 42, 46, 0.7);  /* Muted text */
+  --bundles-border: rgba(0, 0, 0, 0.06);  /* Subtle border */
+  --bundles-radius: 32px;  /* Container border radius */
+  --bundles-radius-card: 18px;  /* Card border radius */
+
+  /* === PRODUCT CARD COMPONENT === */
+  --product-card-bg: #ffffff;  /* Always white background */
+  --product-card-text: #1f2a2e;  /* Dark text */
+  --product-card-text-muted: rgba(31, 42, 46, 0.8);  /* Price text */
+  --product-card-radius: 18px;  /* Card border radius */
+  --product-card-checkbox-accent: #0f6a5b;  /* Teal checkbox */
+  --product-card-checkbox-focus: #0f6a5b;  /* Teal focus */
+  --product-card-separator-bg: #eef5f4;  /* Light teal separator background */
+  --product-card-separator-text: rgba(31, 42, 46, 0.75);  /* Separator plus symbol */
+}
+
+/* === DARK MODE SUPPORT === */
+/* Note: Currently not implemented, but structure preserved for future use */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode overrides can be added here if needed */
+  }
+}

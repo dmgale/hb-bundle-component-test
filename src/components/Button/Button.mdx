@@ -1,0 +1,187 @@
+import { Canvas, Meta, Controls } from '@storybook/blocks'
+import * as ButtonStories from './Button.stories'
+
+<Meta of={ButtonStories} />
+
+# Button
+
+The Button component is a core interactive element used throughout the Holland & Barrett e-commerce experience. It provides consistent styling, accessibility, and user feedback for actions like adding products to basket.
+
+## Overview
+
+This component supports multiple variants and states:
+
+- **Primary Variant**: Holland & Barrett brand green for main actions
+- **Secondary Variant**: Teal for alternative actions
+- **Disabled State**: Reduced opacity with pointer-events disabled
+- **Responsive**: Adapts to container width with appropriate padding
+- **Accessible**: Full keyboard navigation and ARIA support
+
+## Usage
+
+```tsx
+import { Button } from './components/Button'
+
+function MyComponent() {
+  return (
+    <Button variant="primary" onClick={() => console.log('Clicked!')}>
+      Add to basket
+    </Button>
+  )
+}
+```
+
+## Default Example
+
+<Canvas of={ButtonStories.Primary} />
+
+## Props
+
+<Controls of={ButtonStories.Primary} />
+
+## Variants
+
+### Primary Button
+
+The primary button uses Holland & Barrett's signature green color (#7bb300). Use for the main call-to-action on a page.
+
+<Canvas of={ButtonStories.Primary} />
+
+### Secondary Button
+
+The secondary button uses the teal accent color (#0f6a5b). Use for secondary actions or when multiple buttons appear together.
+
+<Canvas of={ButtonStories.Secondary} />
+
+### Disabled State
+
+Buttons can be disabled to prevent interaction. The disabled state reduces opacity and removes pointer events.
+
+<Canvas of={ButtonStories.PrimaryDisabled} />
+
+## Text Content
+
+### Long Text
+
+Buttons automatically wrap text and adjust padding for longer content.
+
+<Canvas of={ButtonStories.LongText} />
+
+### Short Text
+
+Buttons maintain consistent padding even with short text content.
+
+<Canvas of={ButtonStories.ShortText} />
+
+## Accessibility
+
+- **Keyboard Navigation**: Fully keyboard accessible with Enter/Space activation
+- **Focus Indicators**: Clear 2px outline with brand color on focus
+- **Disabled State**: `disabled` attribute prevents interaction and announces to screen readers
+- **Semantic HTML**: Uses native `<button>` element for proper semantics
+- **ARIA Support**: Inherits native button ARIA behavior
+
+### Keyboard Shortcuts
+
+- `Tab` - Navigate to button
+- `Enter` or `Space` - Activate button
+- `Shift + Tab` - Navigate to previous element
+
+## Visual Design
+
+### Colors
+
+- **Primary Background**: `#7bb300` (Holland & Barrett green)
+- **Secondary Background**: `#0f6a5b` (Holland & Barrett teal)
+- **Text**: `#ffffff` (white for high contrast)
+- **Disabled Background**: `#d0d0d0` (neutral gray)
+
+### Border Radius
+
+Consistent `10px` border radius across all variants.
+
+## States
+
+### Default
+
+Standard resting state with full color and shadow.
+
+### Hover
+
+Subtle visual feedback on hover (handled by browser defaults or custom CSS).
+
+### Focus
+
+2px outline in brand color with 2px offset for clear visibility.
+
+### Active
+
+Button maintains visual state during click/tap.
+
+### Disabled
+
+Reduced opacity (0.6) with pointer-events disabled and cursor not-allowed.
+
+## Best Practices
+
+1. **Use Primary for Main Actions**: Reserve primary buttons for the most important action on a page (e.g., "Add to basket", "Checkout")
+2. **Limit Primary Buttons**: Ideally one primary button per screen section to maintain clear hierarchy
+3. **Clear Button Text**: Use action-oriented text (e.g., "Add to basket" not just "Add")
+4. **Appropriate Disabled State**: Only disable buttons when an action is truly unavailable, provide feedback why
+5. **Consistent Sizing**: Use the same button size for similar actions across the application
+6. **Loading States**: Consider showing loading indicators for async actions
+
+## When to Use Each Variant
+
+### Primary
+
+- Adding items to basket
+- Proceeding to checkout
+- Submitting forms
+- Primary page actions
+
+### Secondary
+
+- Canceling actions
+- Alternative navigation
+- Secondary features
+- When multiple buttons appear together
+
+### CSS Modules
+
+Styles are scoped using CSS Modules to prevent conflicts. Custom properties (CSS variables) are used for theming.
+
+### Event Handling
+
+The button passes through all standard button props including `onClick`, `onFocus`, `onBlur`, etc.
+
+```tsx
+<Button
+  variant="primary"
+  onClick={(e) => console.log('Clicked!', e)}
+  onFocus={() => console.log('Focused')}
+>
+  Click me
+</Button>
+```
+
+## Related Components
+
+- [Bundles](../?path=/docs/components-bundles--docs) - Uses buttons for "Add to basket" action
+- [ProductCard](../?path=/docs/components-productcard--docs) - Part of the bundle selection flow
+
+## Browser Support
+
+- Chrome/Edge (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Mobile Safari (iOS 14+)
+- Chrome Mobile (latest)
+
+## Performance
+
+The Button component is lightweight with minimal re-renders. It uses:
+
+- CSS Modules for optimal style loading
+- Native button element for best performance
+- No external dependencies

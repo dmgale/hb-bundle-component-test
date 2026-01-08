@@ -1,0 +1,209 @@
+import { Canvas, Meta, Controls } from '@storybook/blocks'
+import * as BundlesStories from './Bundles.stories'
+
+<Meta of={BundlesStories} />
+
+# Bundles
+
+The Bundles component displays a "Frequently bought together" product bundle interface, allowing users to select multiple products and add them to their basket with an optional discount.
+
+## Overview
+
+This component is designed for Holland & Barrett's e-commerce experience, encouraging customers to purchase complementary products together. It features:
+
+- **Product Selection**: Users can toggle individual products on/off via checkboxes
+- **Dynamic Pricing**: Real-time price calculation with optional bundle discount
+- **Web Worker Support**: Offloads heavy calculations to prevent UI blocking
+- **Simulated Heavy Work**: Optional delay to test performance
+- **Responsive Design**: Adapts layout for mobile, tablet, and desktop
+- **API Integration**: Fetches products from configurable endpoints
+- **Debug Mode**: Logs calculation times and performance metrics
+
+## Usage
+
+````tsx
+import { Bundles } from './components/Bundles'
+
+function MyPage() {
+  return (
+    <Bundles
+      apiEndpoint="/api/products"
+      bundleDiscount={15}
+      maxProducts={5}
+      useWebWorker={true}
+      simulateHeavyWork={false}
+      debug={true}
+      onAddToBasket={(skus) => console.log('Adding:', skus)}
+    />
+  )
+}
+
+
+## Default Example
+
+<Canvas of={BundlesStories.Default} />
+
+## Props
+
+<Controls of={BundlesStories.Default} />
+
+Key Features
+
+1. Product Selection
+
+Users can select/deselect products using checkboxes. The total price updates dynamically based on selected items.
+
+2. Bundle Discount
+
+Apply a percentage discount to encourage bundle purchases. The discount is clearly displayed alongside the total price and savings.
+
+3. Responsive Layout
+
+Desktop (>1100px): Products displayed on the right, header on the left
+
+Tablet (720-1100px): Same layout, products scroll horizontally if needed
+
+Mobile (<720px): Products appear between disclaimer text and button, scrollable horizontally
+
+4. Web Worker & Performance
+
+For large product lists or complex calculations:
+
+Enable useWebWorker to prevent UI freezing
+
+Enable simulateHeavyWork to test performance under load
+
+Enable debug to log calculation times in milliseconds
+
+<Canvas of={BundlesStories.WebWorkerResponsive} />
+
+## API Integration
+
+The component supports multiple API formats:
+
+### Holland & Barrett Format
+
+```json
+{
+  "data": {
+    "products": [
+      {
+        "id": 1,
+        "sku": "HB-VIT-D3-1000",
+        "title": "Vitamin D3 1000 IU",
+        "price": "8.99",
+        "image": "https://...",
+        "stock": 50
+      }
+    ]
+  }
+}
+````
+
+### DummyJSON Format
+
+```json
+{
+  "products": [
+    {
+      "id": 1,
+      "sku": "HEALTH-001",
+      "title": "Product Name",
+      "price": 9.99,
+      "thumbnail": "https://...",
+      "stock": 25
+    }
+  ]
+}
+```
+
+The component automatically detects and adapts to the API format.
+
+## Examples
+
+### With Discount
+
+<Canvas of={BundlesStories.WithDiscount} />
+
+This example demonstrates applying a discount, which only applies if more than one product is selected. Percentage of discount is optional as a scale.
+
+### Out of Stock State
+
+<Canvas of={BundlesStories.OutOfStock} />
+
+This example demonstrates out of stock, whereby only those products that have are in stock, or stock value greater than 1 will be displayed. Check console log to test.
+
+### Performance Test
+
+<Canvas of={BundlesStories.Playground} />
+
+This example demonstrates the difference between main thread and web worker calculations. Toggle `useWebWorker` or `simulateHeavyWork` to compare. Performance metrics are logged to the browser console when `debug` is enabled. Check console log to test.
+
+### Multiple Products from real API
+
+<Canvas of={BundlesStories.MultipleProducts} />
+
+## Accessibility
+
+- **Keyboard Navigation**: All interactive elements are keyboard accessible
+- **Screen Readers**: Product selection announced via ARIA labels
+- **Focus Management**: Clear focus indicators on all controls
+- **Reduced Motion**: Respects `prefers-reduced-motion` for animations
+
+## Performance Considerations
+
+### Web Worker Mode
+
+Enable `useWebWorker` for:
+
+- Large product lists (&gt;20 products)
+- Complex discount calculations
+- Heavy computational work
+
+### Main Thread Mode
+
+Suitable for:
+
+- Small product lists (&lt;10 products)
+- Simple calculations
+- When Web Worker overhead isn't justified
+
+## States
+
+### Loading (Slow Network)
+
+<Canvas of={BundlesStories.LoadingState} />
+
+Displays while fetching products from the API.
+
+### Error
+
+<Canvas of={BundlesStories.ErrorState} />
+
+Shows error message if product fetch fails. Includes error details for debugging.
+
+### Empty
+
+<Canvas of={BundlesStories.EmptyState} />
+
+Displays when no products are available (e.g., all out of stock).
+
+## Best Practices
+
+1. **Limit Products**: Show 3-5 products for optimal conversion
+2. **Relevant Bundles**: Group complementary products (e.g., vitamins with supplements), so could apply to logic based on category or tag
+3. **Mobile Optimization**: Ensure product images load quickly on mobile
+4. **Stock Management**: Filter out-of-stock products before display, which is how this currently behaves
+
+## Related Components
+
+- [Button](../?path=/docs/components-button--docs) - Used for the "Add to basket" action
+- [ProductCard](../?path=/docs/components-productcard--docs) - Part of the bundle selection flow
+
+## Browser Support
+
+- Chrome/Edge (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Mobile Safari (iOS 14+)
+- Chrome Mobile (latest)

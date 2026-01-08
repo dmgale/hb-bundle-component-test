@@ -1,0 +1,64 @@
+.button {
+  appearance: none;
+  border: 0;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 0;
+  font-weight: 700;
+  padding: var(--button-padding);
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  font-family: inherit;
+  width: auto;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  filter: brightness(0.98);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  background-color: var(--button-disabled-bg);
+  cursor: not-allowed;
+  opacity: var(--button-disabled-opacity);
+  box-shadow: none;
+}
+
+/* Primary Button (Green) */
+.primary {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  box-shadow: var(--button-primary-shadow);
+}
+
+.primary:focus {
+  outline-color: var(--button-primary-focus);
+}
+
+/* Secondary Button (Teal) */
+.secondary {
+  background: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+  box-shadow: var(--button-secondary-shadow);
+}
+
+.secondary:focus {
+  outline-color: var(--button-secondary-focus);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

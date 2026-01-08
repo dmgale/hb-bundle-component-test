@@ -1,0 +1,106 @@
+import { Canvas, Meta, Controls } from '@storybook/blocks'
+import * as ProductCardStories from './ProductCard.stories'
+
+<Meta
+  title="Components/ProductCard"
+  of={ProductCardStories}
+  parameters={{
+    layout: 'centered',
+    backgrounds: {
+      default: 'hnb-teal',
+      values: [
+        { name: 'hnb-teal', value: '#eef5f4' },
+        { name: 'white', value: '#ffffff' },
+      ],
+    },
+  }}
+/>
+
+# ProductCard
+
+The ProductCard component displays individual product information within bundle selections. It provides a clean card-based interface with a selection checkbox and optional plus separators.
+
+---
+
+## Default Example
+
+<Canvas of={ProductCardStories.Default} />
+
+<Controls of={ProductCardStories.Default} />
+
+---
+
+## Selected Example
+
+<Canvas of={ProductCardStories.Selected} />
+
+---
+
+## Multiple Cards Example
+
+<Canvas of={ProductCardStories.MultipleCards} />
+
+---
+
+## With Placeholder Image
+
+<Canvas of={ProductCardStories.WithPlaceholder} />
+
+---
+
+## Key Features
+
+- **Product Display**: Image, title, and price
+- **Selection Checkbox**: Large, easy-to-use checkbox with H&B teal accent (#0f6a5b)
+- **Visual Separator**: Plus sign between cards
+- **Responsive Design**: Works on mobile, tablet, and desktop
+- **Accessibility**: Keyboard navigation and screen reader support
+- **Fallback Image**: Displays placeholder when product image is missing or broken
+
+---
+
+## Usage Example
+
+```tsx
+import { ProductCard } from './ProductCard'
+import { useState } from 'react'
+
+function BundleView() {
+  const [selectedSkus, setSelectedSkus] = useState(new Set(['SKU-123']))
+
+  const handleToggle = (sku: string) => {
+    const newSet = new Set(selectedSkus)
+    if (newSet.has(sku)) newSet.delete(sku)
+    else newSet.add(sku)
+    setSelectedSkus(newSet)
+  }
+
+  return (
+    <ProductCard
+      product={{
+        id: 1,
+        sku: 'SKU-123',
+        title: 'Vitamin D3 1000 IU',
+        price: '8.99',
+        image: '/images/vitamin-d3.jpg',
+        stock: 50,
+      }}
+      isSelected={selectedSkus.has('SKU-123')}
+      onToggle={handleToggle}
+      showSeparator={true}
+    />
+  )
+}
+```
+
+### CSS Modules
+
+Styles are scoped using CSS Modules to prevent conflicts. Custom properties (CSS variables) are used for theming.
+
+## Browser Support
+
+- Chrome/Edge (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Mobile Safari (iOS 14+)
+- Chrome Mobile (latest)

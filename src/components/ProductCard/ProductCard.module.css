@@ -1,0 +1,116 @@
+/* ===================================================================
+   PRODUCT CARD COMPONENT - Holland & Barrett Design
+   =================================================================== */
+
+/* === CARD WRAPPER === */
+.cardWrapper {
+  position: relative;
+  flex: 0 0 auto;
+  width: 220px;
+  min-width: 220px;
+}
+
+/* === PRODUCT CARD === */
+.card {
+  background: var(--product-card-bg);
+  border: none;
+  border-radius: var(--product-card-radius);
+  padding: 16px;
+  box-shadow: none;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.card:focus-within {
+  outline: none;
+}
+
+/* === CHECKBOX === */
+.checkboxWrapper {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+}
+
+.checkbox {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  accent-color: var(--product-card-checkbox-accent);
+  margin: 0;
+}
+
+.checkbox:focus {
+  outline: 2px solid var(--product-card-checkbox-focus);
+  outline-offset: 2px;
+}
+
+/* === PRODUCT CONTENT === */
+.imageWrapper {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+  min-height: 140px;
+}
+
+.image {
+  width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  display: block;
+}
+
+.productTitle {
+  margin: 0 0 4px;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  color: var(--product-card-text);
+}
+
+.price {
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--product-card-text-muted);
+}
+
+/* === SEPARATOR === */
+.separator {
+  position: absolute;
+  right: calc((40px / -2) - (72px / 2));
+  top: 50%;
+  transform: translateY(-50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--product-card-separator-bg);
+  box-shadow: none;
+  display: grid;
+  place-items: center;
+  z-index: 3;
+  user-select: none;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--product-card-separator-text);
+  font-weight: 500;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 720px) {
+  .cardWrapper {
+    width: 290px;
+    min-width: 290px;
+  }
+
+  .separator {
+    display: none;
+  }
+}

@@ -1,0 +1,8 @@
+/* ===================================================================
+   THEME ENTRY POINT
+   Import this file to get the complete theme
+   =================================================================== */
+
+@import './theme.css';
+
+/* Components import their own styles via CSS modules */
