@@ -106,6 +106,23 @@ const BundlesContent: React.FC<BundlesProps> = ({
     fetchProducts()
   }, [apiEndpoint, maxProducts])
 
+  const retryFetch = () => {
+    setIsLoading(true)
+    setError(null)
+
+    fetchAndAdaptProducts(apiEndpoint)
+      .then((allProducts) => {
+        let inStockProducts = allProducts.filter((p) => p.stock > 0)
+        if (maxProducts) inStockProducts = inStockProducts.slice(0, maxProducts)
+        setProducts(inStockProducts)
+        setSelectedSkus(new Set(inStockProducts.map((p) => p.sku)))
+      })
+      .catch((err) =>
+        setError(err instanceof Error ? err.message : 'An error occurred')
+      )
+      .finally(() => setIsLoading(false))
+  }
+
   useEffect(() => {
     const calculateTotal = async () => {
       if (products.length === 0) return
@@ -178,19 +195,56 @@ const BundlesContent: React.FC<BundlesProps> = ({
           selectedCount === 1 ? 'item' : 'items'
         } to basket`
 
-  if (isLoading)
-    return <div className={styles.loading}>Loading products...</div>
-  if (error)
+  if (isLoading) {
     return (
-      <div className={styles.error}>
-        <p>Unable to load products.</p>
-        <p>{error}</p>
+      <div className={styles.fullWidthCenterContainer}>
+        <div className={styles.loading}>
+          <img
+            src="/icons/loading.svg"
+            alt="Loading products"
+            className={styles.stateIcon}
+          />
+          <p>Loading products… Please wait.</p>
+        </div>
       </div>
     )
-  if (products.length === 0)
+  }
+
+  if (error) {
     return (
-      <div className={styles.empty}>No products available at this time.</div>
+      <div className={styles.fullWidthCenterContainer}>
+        <div className={styles.errorEmptyState}>
+          <img
+            src="/icons/error.svg"
+            alt="No products available"
+            className={styles.stateIcon}
+          />
+          <p>Oops! We couldn’t load the products: {error}</p>
+          <Button onClick={retryFetch} variant="secondary">
+            Try Again
+          </Button>
+        </div>
+      </div>
     )
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className={styles.fullWidthCenterContainer}>
+        <div className={styles.errorEmptyState}>
+          <img
+            src="/icons/empty.svg"
+            alt="No products available"
+            className={styles.stateIcon}
+          />
+          <p>No products available at this time.</p>
+          <Button onClick={retryFetch} variant="secondary">
+            Refresh
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   const productsSection = (
     <div className={styles.products}>

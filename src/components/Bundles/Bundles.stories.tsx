@@ -103,7 +103,9 @@ export const Default: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('https://hb.demo/products', () => {
+        http.get('https://hb.demo/products', async () => {
+          // simulate slow network: 3 seconds delay
+          await new Promise((resolve) => setTimeout(resolve, 3000))
           return HttpResponse.json({ data: { products: mockProducts } })
         }),
       ],
@@ -166,7 +168,7 @@ export const LoadingState: Story = {
         http.get('https://hb.demo/products', async () => {
           // simulate slow network: 3 seconds delay
           await new Promise((resolve) => setTimeout(resolve, 3000))
-          return HttpResponse.json({ data: { products: [] } })
+          return HttpResponse.json({ data: { products: mockProducts } })
         }),
       ],
     },

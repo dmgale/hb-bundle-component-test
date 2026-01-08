@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="none" width="24" height="24">
+  <!-- Circle background (light green) -->
+  <circle cx="12" cy="12" r="12" fill="#C9EBCF"></circle>
+
+  <!-- Inner exclamation circle (white) -->
+  <circle cx="12" cy="12" r="9" fill="#FFFFFF"></circle>
+
+  <!-- Error cross -->
+  <path d="M8 8L16 16M16 8L8 16" stroke="#D32F2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+
+</svg>
