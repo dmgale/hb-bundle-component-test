@@ -1,32 +1,112 @@
-# H&B Bundles / React Component Test
+# H&B Bundles Component Test
 
-Please don't spend more than a few hours on this test, we can talk through where you got up to as part of any interview. Be prepared to talk through what you would have done given more time.
+## At a glance
+- **Purpose:** React Bundles component for H&B, dynamic pricing & CTA updates.  
+- **API:** Fetches products (mocked), shows only in-stock, logs SKUs.  
+- **UX:** Updates totals & button text live, handles offline/errors gracefully.  
+- **Testing / Storybook:** Interactive stories showcase edge cases & behavior.  
 
-## Setup
+---
 
-1. `npm install`
-2. `npm run storybook`
+A React + Storybook implementation of the **Bundles component**, built as part of a H&B exercise.  
 
-## The Task
+The goal of the test was to create a reusable component that:  
+- Fetches products (mocked in Storybook)  
+- Updates total price and CTA text dynamically  
+- Displays only in-stock products  
+- Logs selected SKUs on add-to-basket  
+- Handles offline / error scenarios gracefully
+- Offloads expensive calculations to **Web Workers / multithreading** for smooth UI updates (bundle calculations as example)
 
-Create a react component in storybook for the bundles component
+This project demonstrates **component architecture, state management, API integration, and defensive UI design**.
 
-### Bundles Component
+---
 
-![Component](bundles.png)
+## Key Features
 
-Fetch data from the endpoint `https://hb.demo/products` (The data is mocked in the file Bundles.stories.tsx)
+- Reusable **Bundles component** with dynamic pricing & CTA updates  
+- **Storybook-first development** with interactive scenarios  
+- **TypeScript** for type safety and maintainability  
+- Clear separation of concerns: components, adapters, and theme  
+- Offline / error handling with fallback UI  
 
-### A/C's
+---
 
-1. The 'total price' should update when products are selected.
-2. The button text should reflect the number of selected products.
-3. Should closely match the design.
-4. Should only show products that are in stock.
-5. Console.log the SKUs of the products to add to the basket when clicking the button.
+## Quick Start
 
-### Food for thought
+```bash
+npm install
+npm run storybook
+```
 
-1. Performance / Suspense
-2. Scenarios where the API is offline
-3. Testing / TDD
+Storybook is the primary interface for testing and exploring component behavior.
+
+---
+
+## Bundles Component Behavior
+
+- Fetches products from [`https://hb.demo/products`](https://hb.demo/products) (mocked in Storybook)  
+- Users select products; totals and button text update in real time  
+- Logs selected SKUs on add-to-basket  
+- Handles offline/error states gracefully with disabled actions  
+
+---
+
+## Storybook Scenarios
+
+- **Default** – Products loaded and selectable  
+- **API Offline / Error** – Fallback UI displayed  
+- **Empty / Out of Stock** – No selections possible  
+- **Interactive State** – Live total & CTA updates  
+
+---
+
+## Project Structure
+
+src/
+├── adapters/apiAdapters.ts
+├── components/
+│   ├── Bundles/
+│   │   ├── Bundles.mdx
+│   │   ├── Bundles.module.css
+│   │   ├── Bundles.stories.tsx
+│   │   ├── Bundles.test.tsx
+│   │   ├── Bundles.tsx
+│   │   └── index.ts
+│   ├── Button/
+│   │   ├── Button.mdx
+│   │   ├── Button.module.css
+│   │   ├── Button.stories.tsx
+│   │   ├── Button.tsx
+│   │   └── index.ts
+│   └── ProductCard/
+│       ├── index.ts
+│       ├── ProductCard.mdx
+│       ├── ProductCard.module.css
+│       ├── ProductCard.stories.tsx
+│       └── ProductCard.tsx
+├── index.ts
+├── setupTests.ts
+├── theme/
+│   ├── index.css
+│   └── theme.css
+└── vite-env.d.ts
+
+---
+
+## Architecture Notes
+
+- **State-driven UI:** derived totals and CTA text, no redundant state  
+- **Defensive rendering:** loading, error, and empty states handled explicitly  
+- **Storybook as a testing surface:** visualizes edge cases & interaction  
+- **API abstraction:** `adapters/apiAdapters.ts` separates concerns for future scaling  
+
+---
+
+## Next Steps / Improvements
+
+- More Extensive Unit & integration tests (Jest / Testing Library)  
+- Data-fetching abstraction (React Query / SWR)  
+- Suspense-based loading states i.e. fallback UI until API or product bundle is ready
+- Accessibility improvements (ARIA, keyboard navigation)  
+- Storybook snapshot/interaction tests  
