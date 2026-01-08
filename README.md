@@ -63,6 +63,7 @@ Storybook is the primary interface for testing and exploring component behavior.
 
 ## Project Structure
 
+```text
 src/
 ├── adapters/apiAdapters.ts
 ├── components/
@@ -91,6 +92,7 @@ src/
 │   ├── index.css
 │   └── theme.css
 └── vite-env.d.ts
+```
 
 ---
 
