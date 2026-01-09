@@ -33,7 +33,7 @@ const meta: Meta<typeof Bundles> = {
     simulateHeavyWork: {
       control: 'boolean',
       description:
-        'Simulate CPU-intensive work (~500ms) to show main thread blocking visually',
+        'Simulate CPU-intensive work (1-2s+) to show main thread blocking visually',
     },
     debug: {
       control: 'boolean',
@@ -117,7 +117,7 @@ export const Default: Story = {
 export const WithDiscount: Story = {
   args: {
     bundleDiscount: 10,
-    debug: true,
+    debug: false,
   },
   parameters: {
     msw: {

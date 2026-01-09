@@ -23,7 +23,7 @@ interface BundlesProps {
 
 function heavyComputation(): number {
   let result = 0
-  for (let i = 0; i < 50_000_000; i++) {
+  for (let i = 0; i < 200_000_000; i++) {
     result += Math.sqrt(i) * Math.random()
   }
   return result
@@ -39,7 +39,7 @@ async function calculatePriceInWorker(
     (priceArray, discountPercent, shouldSimulate) => {
       if (shouldSimulate) {
         let heavyResult = 0
-        for (let i = 0; i < 50_000_000; i++) {
+        for (let i = 0; i < 200_000_000; i++) {
           heavyResult += Math.sqrt(i) * Math.random()
         }
       }
@@ -139,8 +139,8 @@ const BundlesContent: React.FC<BundlesProps> = ({
         selectedProducts.length > 1 ? bundleDiscount : 0
 
       setIsCalculating(true)
-      const start = performance.now()
 
+      const start = performance.now()
       let total: number
       if (useWebWorker) {
         total = await calculatePriceInWorker(
@@ -155,6 +155,7 @@ const BundlesContent: React.FC<BundlesProps> = ({
           simulateHeavyWork
         )
       }
+      const calcTime = Math.round(performance.now() - start)
 
       const subtotal = prices.reduce((sum, p) => sum + p, 0)
       setTotalPrice(total)
@@ -163,9 +164,7 @@ const BundlesContent: React.FC<BundlesProps> = ({
       setIsCalculating(false)
 
       if (debug) {
-        console.log(
-          `Calculation completed in ${Math.round(performance.now() - start)} ms`
-        )
+        console.log(`Calculation completed in ${calcTime} ms`)
       }
     }
 
@@ -271,7 +270,55 @@ const BundlesContent: React.FC<BundlesProps> = ({
 
         <div className={styles.productsMobile}>{productsSection}</div>
 
-        {isCalculating && <p style={{ color: 'orange' }}>Calculating…</p>}
+        {debug && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 0',
+              fontSize: '13px',
+              color: '#666',
+            }}
+          >
+            <span
+              className={styles.spinnerSlow}
+              style={{
+                width: '12px',
+                height: '12px',
+                borderWidth: '2px',
+                borderColor: '#0066cc',
+              }}
+            />
+            <span style={{ fontFamily: 'monospace' }}>
+              UI Thread Indicator {useWebWorker ? '(Worker enabled)' : '(Main thread)'}
+            </span>
+          </div>
+        )}
+
+        {isCalculating && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 0',
+              color: '#ff6b35',
+              fontWeight: 500,
+            }}
+          >
+            <span
+              className={styles.spinner}
+              style={{
+                width: '16px',
+                height: '16px',
+                borderWidth: '2px',
+                borderColor: '#ff6b35',
+              }}
+            />
+            <span>Calculating price…</span>
+          </div>
+        )}
 
         <div className={styles.discountContainer}>
           {bundleDiscount > 0 && selectedSkus.size > 1 && (
